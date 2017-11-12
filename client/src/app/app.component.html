@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="col-md-12">
+
+    <h1>Users List</h1>
+
+    <!-- Button - Create new User  -->
+    <button type="button" class="btn btn-primary pull-right" (click)="openModal(template)">Create New User</button>
+
+    <!-- Modal Template for New User -->
+    <ng-template #template>
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Create New User</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" name="name" placeholder="Name" [(ngModel)]="name">
+          </div>
+          <button type="button" class="btn btn-default" (click)="createUser(name)">Create</button>
+        </form>
+
+      </div>
+    </ng-template>
+
+    <!-- List of All Users  -->
+    <table class="table table-bordered table-striped table-hover">
+      <thead>
+        <tr>
+          <th class="text-center">ID</th>
+          <th class="text-center">Name</th>
+          <th class="text-center">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users; let i = index">
+          <td>{{ i+1 }}</td>
+          <td>{{ user.name }}</td>
+          <td>
+            <button class="btn btn-info" (click)="showEditProductForm(product)">
+              <i class="fa fa-edit"></i>
+            </button>
+            <button class="btn btn-danger" (click)="removeProduct(product)">
+              <i class="fa fa-minus"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
