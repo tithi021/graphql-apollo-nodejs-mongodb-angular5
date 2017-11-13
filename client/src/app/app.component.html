@@ -1,10 +1,16 @@
 <div class="container">
   <div class="col-md-12">
 
-    <h1>Users List</h1>
-
-    <!-- Button - Create new User  -->
-    <button type="button" class="btn btn-primary pull-right" (click)="openModal(template)">Create New User</button>
+    <!--  -->
+    <div class="row">
+      <div class="col1">
+        <h1>Users List</h1>
+      </div>
+      <div class="col2">
+        <!-- Button - Create new User  -->
+        <button type="button" class="btn btn-primary pull-right" (click)="openModal(template)">Create New User</button>
+      </div>
+    </div>
 
     <!-- Modal Template for New User -->
     <ng-template #template>
@@ -20,9 +26,9 @@
             <label for="name">Name</label>
             <input type="text" class="form-control" name="name" placeholder="Name" [(ngModel)]="name">
           </div>
-          <button type="button" class="btn btn-default" (click)="createUser(name)">Create</button>
+          <button type="button" class="btn btn-default" *ngIf="!user._id" (click)="createUser(name);">Create</button>
+          <button type="button" class="btn btn-default" *ngIf="user._id" (click)="updateUser(name);">Update</button>
         </form>
-
       </div>
     </ng-template>
 
@@ -40,10 +46,10 @@
           <td>{{ i+1 }}</td>
           <td>{{ user.name }}</td>
           <td>
-            <button class="btn btn-info" (click)="showEditProductForm(product)">
+            <button class="btn btn-info" (click)="showEditUserForm(user, template)">
               <i class="fa fa-edit"></i>
             </button>
-            <button class="btn btn-danger" (click)="removeProduct(product)">
+            <button class="btn btn-danger" (click)="removeUser(user._id)">
               <i class="fa fa-minus"></i>
             </button>
           </td>
