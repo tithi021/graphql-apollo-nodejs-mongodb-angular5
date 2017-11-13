@@ -1,3 +1,6 @@
+/**
+ * Server Mutation Query
+ */
 
 'use strict';
 
@@ -6,7 +9,7 @@ import gql from 'graphql-tag';
 export const addUser = gql`
   mutation addUser($name: String!) {
     addUser(name: $name) {
-      _id
+      id
       name
     }
   }`;
@@ -14,22 +17,23 @@ export const addUser = gql`
 export const Users = gql`
   query {
     users{
-      _id
+      id
       name
     }
   }`;
 
 export const removeUser = gql`
-  mutation removeUser($ID: Int!) {
-    removeUser(_id: $ID) {
-      _id
+  mutation removeUser($id: String!) {
+    removeUser(id: $id) {
+      id
+      name
     }
   }`;
 
 export const updateUser = gql`
   mutation updateUser($id: String!, $name: String!) {
-    updateUser(_id: $id, name: $name) {
-      _id
+    updateUser(id: $id, name: $name) {
+      id
       name
     }
   }`;
