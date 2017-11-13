@@ -3,18 +3,21 @@ var GraphQLNonNull = require('graphql').GraphQLNonNull;
 var GraphQLObjectType = require('graphql').GraphQLObjectType;
 var GraphQLString = require('graphql').GraphQLString;
 var UserType = require('../types/user');
-var Users = require('../data/user').Users; // List of Users
+var UserModel = require('../../models/user');
 
 exports.add = {
-    type: UserType.userType,
-    args: {
-        name: {
-            type: new GraphQLNonNull(GraphQLString),
-        }
-    },
-    resolve(root, params) {
-        const newUser = Object.assign({ id: Users.length + 1 }, { name: params.name })
-        Users.push(newUser);
-        return newUser
+  type: UserType.userType,
+  args: {
+    name: {
+      type: new GraphQLNonNull(GraphQLString),
     }
+  },
+  resolve(root, params) {
+    const uModel = new UserModel(params);
+    const newUser = uModel.save();
+    if (!newUser) {
+      throw new Error('Error');
+    }
+    return newUser
+  }
 }

@@ -2,32 +2,22 @@
 
 var GraphQLObjectType = require('graphql').GraphQLObjectType;
 var GraphQLInputObjectType = require('graphql').GraphQLInputObjectType;
-var GraphQLInt = require('graphql').GraphQLInt;
+var GraphQLNonNull = require('graphql').GraphQLNonNull;
+var GraphQLID = require('graphql').GraphQLID;
 var GraphQLString = require('graphql').GraphQLString;
 
 // User Type
 exports.userType = new GraphQLObjectType({
-    name: 'user',
-    fields: function () {
-        return {
-            id: {
-                type: GraphQLInt
-            },
-            name: {
-                type: GraphQLString
-            }
-        }
+  name: 'user',
+  fields: function () {
+    return {
+      _id: {
+        type: new GraphQLNonNull(GraphQLID)
+      },
+      name: {
+        type: GraphQLString
+      }
     }
+  }
 });
 
-// User Input Type
-exports.userInputType = new GraphQLInputObjectType({
-    name: 'UserInput',
-    fields: function () {
-        return {
-            name: {
-                type: GraphQLString
-            }
-        }
-    }
-});

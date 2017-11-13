@@ -1,20 +1,22 @@
-var GraphQLInt = require('graphql').GraphQLInt;
+var GraphQLNonNull = require('graphql').GraphQLNonNull;
+var GraphQLID = require('graphql').GraphQLID;
+var GraphQLString = require('graphql').GraphQLString;
 var UserType = require('../types/user');
-var Users = require('../data/user').Users; // List of Users
+var UserModel = require('../../models/user');
 
 exports.remove = {
-    type: UserType.userType,
-    args: {
-        id: {
-            name: 'id',
-            type: GraphQLInt
-        }
-    },
-    resolve(root, params) {
-        var index = Users.map(function (x) { return x.id; }).indexOf(params.id);
-
-        Users.splice(index, 1);
-
-        return params.id;
+  type: UserType.userType,
+  args: {
+    _id: {
+      type: new GraphQLNonNull(GraphQLString)
     }
+  },
+  resolve(root, params) {
+    console.log(params)
+    const removeduser = UserModel.findByIdAndRemove(params._id).exec();
+    if (!removeduser) {
+      throw new Error('Error')
+    }
+    return removeduser;
+  }
 }
