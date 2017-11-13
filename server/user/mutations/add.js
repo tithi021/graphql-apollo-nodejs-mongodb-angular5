@@ -1,6 +1,5 @@
 
 var GraphQLNonNull = require('graphql').GraphQLNonNull;
-var GraphQLObjectType = require('graphql').GraphQLObjectType;
 var GraphQLString = require('graphql').GraphQLString;
 var UserType = require('../types/user');
 var UserModel = require('../../models/user');

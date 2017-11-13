@@ -1,23 +1,13 @@
-var mongoose = require('mongoose');
-// mongoose.Promise = require('bluebird');
-
 const express = require("express");
+const mongoose = require('./config/mongoose');
 const graphqlHTTP = require("express-graphql");
-var cors = require("cors");
-var url = 'mongodb://localhost/testing';
-
+const cors = require("cors");
+const db = mongoose();
 const app = express();
 
 app.use('*', cors());
 
-mongoose.Promise = global.Promise;
-mongoose.connect(url, {useMongoClient: true});
-var db = mongoose.connection;
-db.on('open', function() {
-  console.log('opened');
-});
-
-var userSchema = require('./user/index').userSchema;
+const userSchema = require('./user/index').userSchema;
 app.use('/graphql', cors(), graphqlHTTP({
   schema: userSchema,
   rootValue: global,
